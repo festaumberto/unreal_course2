@@ -23,7 +23,7 @@ public:
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
-	void GetFirstElementInReach();
+	
 
 private:
 	float Reach = 100.0f;
@@ -39,4 +39,6 @@ private:
 	void GetInputController();
 
 	void GetPhysicHandler();
+
+	FHitResult GetFirstElementInReach();
 };

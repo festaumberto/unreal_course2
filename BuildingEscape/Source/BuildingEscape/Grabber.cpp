@@ -60,9 +60,23 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
+	if (PhysicsHandle->GrabbedComponent) {
+
+		FVector out_Location;
+		FRotator out_Rotator;
+
+		GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT out_Location, OUT out_Rotator);
+
+		//UE_LOG(LogTemp, Warning, TEXT("%s , %s"), *out_Location.ToString(), *out_Rotator.ToString());
+
+		FVector LineTraceEnd = out_Location + (out_Rotator.Vector() * Reach);// FVector(0.f, 0.f, 70.f);
+
+		PhysicsHandle->SetTargetLocation(LineTraceEnd);
+	}
+
 }
 
-void UGrabber::GetFirstElementInReach()
+FHitResult UGrabber::GetFirstElementInReach()
 {
 	FVector out_Location;
 	FRotator out_Rotator;
@@ -80,7 +94,7 @@ void UGrabber::GetFirstElementInReach()
 
 	FCollisionQueryParams queryParams(FName(TEXT("")), false, GetOwner());
 
-	bool somethingHit = GetWorld()->LineTraceSingleByObjectType(
+	GetWorld()->LineTraceSingleByObjectType(
 		OUT LineTraceHit,
 		out_Location,
 		LineTraceEnd,
@@ -88,17 +102,29 @@ void UGrabber::GetFirstElementInReach()
 		queryParams
 	);
 
-	if (somethingHit) {
+	if (LineTraceHit.GetActor()) {
 		UE_LOG(LogTemp, Warning, TEXT("Grabbero hit something , %s"), *(LineTraceHit.GetActor()->GetName()));
 	}
+
+	return LineTraceHit;
 }
 
 void UGrabber::Grab() {
 	UE_LOG(LogTemp, Warning, TEXT("Grab pressed"));
-	GetFirstElementInReach();
+	auto HitResult = GetFirstElementInReach();
+	auto ComponentToGrab = HitResult.GetComponent();
+	auto ActorHit = HitResult.GetActor();
+
+	if(ActorHit)
+		PhysicsHandle->GrabComponent(ComponentToGrab,NAME_None, ComponentToGrab->GetOwner()->GetActorLocation(),true);
+
+
+	
 }
 
 void UGrabber::Release() {
 	UE_LOG(LogTemp, Warning, TEXT("Object Released"));
+	if (PhysicsHandle->GrabbedComponent)
+		PhysicsHandle->ReleaseComponent();
 }
 

@@ -24,18 +24,11 @@ void UOpenDoor::BeginPlay()
 	//actorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
 }
 
-void UOpenDoor::OpenDoor()
-{
-	FRotator newRotator = FRotator(0.f, -20.0f, 0.f);
-	GetOwner()->SetActorRotation(newRotator);
-	isDoorOpened = true;
-}
-
+//non più usato
 void UOpenDoor::CloseDoor()
 {
 	FRotator newRotator = FRotator(0.f, -90.0f, 0.f);
 	GetOwner()->SetActorRotation(newRotator);
-	isDoorOpened = false;
 }
 
 
@@ -47,14 +40,12 @@ void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompo
 
 
 	//if (pressurePlate->IsOverlappingActor(actorThatOpens)) 
-	if(GetTotalMassOfActorsOnPlate() > 50.f)
+	if(GetTotalMassOfActorsOnPlate() > TriggerMass)
 	{
-		OpenDoor();
-		lastDoorOpenTime = GetWorld()->GetTimeSeconds();
+		OnOpenRequest.Broadcast();
 	}
-
-	if (isDoorOpened && GetWorld()->GetTimeSeconds() - lastDoorOpenTime > doorCloseDelay) {
-		CloseDoor();
+	else{
+		OnCloseRequest.Broadcast();
 	}
 	
 }

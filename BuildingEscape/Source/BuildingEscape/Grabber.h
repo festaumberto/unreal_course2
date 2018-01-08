@@ -26,19 +26,31 @@ public:
 	
 
 private:
+	//la distanza massima degli oggetti
 	float Reach = 100.0f;
 
+	//l'handler che raccoglie gli oggetti
 	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+
+	//il gestore dell'input del giocatore
 	UInputComponent* InputComponent = nullptr;
 
-	//ray-casts and reach objects 
+	//ray-cast e afferra il primo oggetto raggiungibile
 	void Grab();
-	//release grabbed object
+
+	//rilascia l'oggetto raccolto
 	void Release();
 
+	//popola l'input controller
 	void GetInputController();
 
+	//popola il physics handler
 	void GetPhysicHandler();
 
+	//ritorna il primo elemento raggiungibile, se esiste
 	FHitResult GetFirstElementInReach();
+
+	//ritorna il punto finale del line trace
+	FVector GetReachLineEnd();
+	FVector GetReachLineStart();
 };

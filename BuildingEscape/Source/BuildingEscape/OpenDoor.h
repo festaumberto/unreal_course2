@@ -25,6 +25,8 @@ public:
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
+	float GetTotalMassOfActorsOnPlate();
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	float OpenAngle = 60.0f;
@@ -37,7 +39,7 @@ private:
 
 	float lastDoorOpenTime;
 
-	AActor* actorThatOpens;
+	//AActor* actorThatOpens;
 
 	bool isDoorOpened = false;
 	

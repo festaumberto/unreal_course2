@@ -57,7 +57,7 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate() {
 	//trova tutti gli oggetti sulla piattaforma
 	if (!pressurePlate) {
 		UE_LOG(LogTemp, Error, TEXT("All'oggetto %s manca il componente pressurePlate"), *(GetOwner()->GetName()));
-		return;
+		return TotalMass;
 	}
 	pressurePlate->GetOverlappingActors(OUT OverlappingActors);
 	//somma tutte le masse
@@ -68,7 +68,7 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate() {
 			TotalMass = TotalMass + primitiveComponent->GetMass();
 
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Total Mass on platform trigger %f"), TotalMass);
+	//UE_LOG(LogTemp, Warning, TEXT("Total Mass on platform trigger %f"), TotalMass);
 	return TotalMass;
 }
 

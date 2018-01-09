@@ -45,7 +45,7 @@ void UGrabber::GetPhysicHandler()
 {
 	///Cerco il component PhysicsHandle
 	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
-	if (PhysicsHandle == nullptr) {
+	if (!PhysicsHandle) {
 		UE_LOG(LogTemp, Error, TEXT("All'oggetto %s manca il componente PhysicsHandle"), *(GetOwner()->GetName()));
 	}
 }
@@ -56,6 +56,10 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
+	
+	if (!PhysicsHandle) {
+		return;
+	}
 	//se ho un oggetto raccolto...
 	if (PhysicsHandle->GrabbedComponent) {
 		//sposta l'oggetto raccolto alla posizione dove si trova la fine dell'attuale raytrace
@@ -122,6 +126,9 @@ void UGrabber::Grab() {
 	auto ComponentToGrab = HitResult.GetComponent();
 	auto ActorHit = HitResult.GetActor();
 
+	if (!PhysicsHandle)
+		return;
+
 	if(ActorHit)
 		PhysicsHandle->GrabComponent(
 			ComponentToGrab, //quale elemento raccogliere
@@ -135,6 +142,8 @@ void UGrabber::Grab() {
 }
 
 void UGrabber::Release() {
+	if (!PhysicsHandle)
+		return;
 	//UE_LOG(LogTemp, Warning, TEXT("Object Released"));
 	//se c'è un oggetto raccolto, rilascialo
 	if (PhysicsHandle->GrabbedComponent)

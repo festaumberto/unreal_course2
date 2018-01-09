@@ -35,7 +35,7 @@ public:
 private:
 	
 	UPROPERTY(EditAnywhere)
-	ATriggerVolume* pressurePlate;
+	ATriggerVolume* pressurePlate = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	float TriggerMass = 50.f;

@@ -55,6 +55,10 @@ float UOpenDoor::GetTotalMassOfActorsOnPlate() {
 	float TotalMass = 0.f;
 	TArray<AActor*> OverlappingActors;
 	//trova tutti gli oggetti sulla piattaforma
+	if (!pressurePlate) {
+		UE_LOG(LogTemp, Error, TEXT("All'oggetto %s manca il componente pressurePlate"), *(GetOwner()->GetName()));
+		return;
+	}
 	pressurePlate->GetOverlappingActors(OUT OverlappingActors);
 	//somma tutte le masse
 	for (AActor* actor : OverlappingActors)

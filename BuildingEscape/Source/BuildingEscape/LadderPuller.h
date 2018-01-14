@@ -22,6 +22,8 @@ public:
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
+	float GetTotalMassOfActorsOnPlate();
+
 
 	UPROPERTY(BlueprintAssignable)
 	FOnPullStairsRequest  OnPullStairsRequest;
@@ -35,4 +37,7 @@ private:
 	
 
 	AActor* actorThatOpens = nullptr;
+
+	UPROPERTY(EditAnywhere)
+	float TriggerMass = 50.f;
 };

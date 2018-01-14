@@ -56,6 +56,7 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
+	//DrawDebugLine(GetWorld(), GetReachLineStart(), GetReachLineEnd(), FColor(255, 0, 0), false, 0.f, 0.f, 10.f);
 	
 	if (!PhysicsHandle) {
 		return;
@@ -88,6 +89,8 @@ FVector UGrabber::GetReachLineStart() {
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT out_Location, OUT out_Rotator);
 	return out_Location;
 }
+
+
 
 FHitResult UGrabber::GetFirstElementInReach()
 {

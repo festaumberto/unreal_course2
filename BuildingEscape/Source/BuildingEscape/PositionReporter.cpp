@@ -27,7 +27,7 @@ void UPositionReporter::BeginPlay()
 	FString position = "X=%f, Y=%f, Z=%f";
 	actor->GetTransform().GetLocation().X;
 
-	UE_LOG(LogTemp, Warning, TEXT(" %s position is at X=%f, Y=%f, Z=%f!"), *actorName, actor->GetTransform().GetLocation().X, actor->GetTransform().GetLocation().Y, actor->GetTransform().GetLocation().Z);
+	//UE_LOG(LogTemp, Warning, TEXT(" %s position is at X=%f, Y=%f, Z=%f!"), *actorName, actor->GetTransform().GetLocation().X, actor->GetTransform().GetLocation().Y, actor->GetTransform().GetLocation().Z);
 	
 }
 
@@ -37,6 +37,10 @@ void UPositionReporter::TickComponent( float DeltaTime, ELevelTick TickType, FAc
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
-	// ...
+	AActor* actor = GetOwner();
+	FString actorName = actor->GetName();
+	FString position = "X=%f, Y=%f, Z=%f";
+	actor->GetTransform().GetLocation().X;	
+	UE_LOG(LogTemp, Warning, TEXT(" %s position is at X=%f, Y=%f, Z=%f!"), *actorName, actor->GetTransform().GetLocation().X, actor->GetTransform().GetLocation().Y, actor->GetTransform().GetLocation().Z);
 }
 

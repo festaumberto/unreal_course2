@@ -31,7 +31,7 @@ void UAction::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompone
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
-	DrawDebugLine(GetWorld(),GetRayTraceStartPoint(),GetRayTraceEndPoint(), FColor(255, 0, 0), false, 0.f, 0.f, 10.f);
+	//DrawDebugLine(GetWorld(),GetRayTraceStartPoint(),GetRayTraceEndPoint(), FColor(255, 0, 0), false, 0.f, 0.f, 10.f);
 }
 
 void UAction::FindObjectWithAction()

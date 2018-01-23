@@ -38,7 +38,7 @@ void ULadderPuller::TickComponent( float DeltaTime, ELevelTick TickType, FActorC
 		return;
 
 	if (GetTotalMassOfActorsOnPlate() >= TriggerMass ){
-		UE_LOG(LogTemp, Warning, TEXT("Trigger nuovo attivato"));
+		//UE_LOG(LogTemp, Warning, TEXT("Trigger nuovo attivato"));
 		OnPullStairsRequest.Broadcast();
 
 	}
